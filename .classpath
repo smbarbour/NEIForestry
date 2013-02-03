@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CodeChickenCore"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Minecraft"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/NEI"/>
+	<classpathentry kind="lib" path="C:/Users/Scott.Scott-PC/workspace-minecraft/shared/forestry-A-2.0.0.5-deobf.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
