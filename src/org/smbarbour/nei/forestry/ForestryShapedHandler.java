@@ -16,7 +16,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import forestry.core.utils.ShapedRecipeCustom;
 
-public class ForestryRecipeHandler extends ShapedRecipeHandler {
+public class ForestryShapedHandler extends ShapedRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
@@ -25,14 +25,13 @@ public class ForestryRecipeHandler extends ShapedRecipeHandler {
 
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		if ((outputId.equals("crafting")) && (getClass() == ForestryRecipeHandler.class)) {
+		if ((outputId.equals("crafting")) && (getClass() == ForestryShapedHandler.class)) {
 			List<IRecipe> allrecipes = CraftingManager.getInstance().getRecipeList();
 			for(IRecipe irecipe : allrecipes)
 			{
 				if (irecipe instanceof ShapedRecipeCustom) {
 					ShapedRecipeCustom customRecipe = (ShapedRecipeCustom)irecipe;
-					NEIForestry.logger.log(Level.FINE, "Recipe size: " + irecipe.getRecipeSize());
-					CachedForestryRecipe recipe = new CachedForestryRecipe(customRecipe);
+					CachedShapedRecipe recipe = new CachedShapedRecipe(customRecipe);
 					this.arecipes.add(recipe);
 				}
 			}
@@ -48,7 +47,7 @@ public class ForestryRecipeHandler extends ShapedRecipeHandler {
 		{
 			if (irecipe instanceof ShapedRecipeCustom) {
 				ShapedRecipeCustom customRecipe = (ShapedRecipeCustom)irecipe;
-				CachedForestryRecipe recipe = new CachedForestryRecipe(customRecipe);
+				CachedShapedRecipe recipe = new CachedShapedRecipe(customRecipe);
 				if (NEIClientUtils.areStacksSameTypeCrafting(irecipe.getRecipeOutput(), result)) {
 					this.arecipes.add(recipe);
 				}
@@ -63,7 +62,7 @@ public class ForestryRecipeHandler extends ShapedRecipeHandler {
 		{
 			if (irecipe instanceof ShapedRecipeCustom) {
 				ShapedRecipeCustom customRecipe = (ShapedRecipeCustom)irecipe;
-				CachedForestryRecipe recipe = new CachedForestryRecipe(customRecipe);
+				CachedShapedRecipe recipe = new CachedShapedRecipe(customRecipe);
 				if (recipe.contains(recipe.ingredients, ingredient)) {
 					recipe.setIngredientPermutation(recipe.ingredients, ingredient);
 					this.arecipes.add(recipe);
@@ -72,18 +71,17 @@ public class ForestryRecipeHandler extends ShapedRecipeHandler {
 		}
 	}
 	
-	public class CachedForestryRecipe extends CachedRecipe {
+	public class CachedShapedRecipe extends CachedRecipe {
 
 		public int xproduct = 119;
 		public int yproduct = 24;
 		public ArrayList<PositionedStack> ingredients;
 		public PositionedStack product;
 		
-		public CachedForestryRecipe(ShapedRecipeCustom recipe) {
+		public CachedShapedRecipe(ShapedRecipeCustom recipe) {
 			super();
 			ingredients = new ArrayList<PositionedStack>();
 			setIngredients(recipe);
-			NEIForestry.logger.log(Level.FINE, (this.product.item.getItemName() + ": " + ingredients.size() + " ingredients"));
 		}
 
 		public void setIngredients(ShapedRecipeCustom recipe)
@@ -92,8 +90,8 @@ public class ForestryRecipeHandler extends ShapedRecipeHandler {
 			{
 				int width = ((Integer)ObfuscationReflectionHelper.getPrivateValue(ShapedRecipeCustom.class, recipe, 0)).intValue();
 				int height = ((Integer)ObfuscationReflectionHelper.getPrivateValue(ShapedRecipeCustom.class, recipe, 1)).intValue();
-				Object[] items = (Object[])ObfuscationReflectionHelper.getPrivateValue(ShapedRecipeCustom.class, recipe, 2);
-				this.product = new PositionedStack((ItemStack)ObfuscationReflectionHelper.getPrivateValue(ShapedRecipeCustom.class, recipe, 3), this.xproduct, this.yproduct);
+				Object[] items = recipe.getIngredients();
+				this.product = new PositionedStack(recipe.getRecipeOutput(), this.xproduct, this.yproduct);
 				setIngredients(width, height, items);
 			}
 			catch (Exception ex)
@@ -125,7 +123,7 @@ public class ForestryRecipeHandler extends ShapedRecipeHandler {
 
 		public ArrayList<PositionedStack> getIngredients()
 		{
-			return getCycledIngredients(ForestryRecipeHandler.this.cycleticks / 20, this.ingredients);
+			return getCycledIngredients(ForestryShapedHandler.this.cycleticks / 20, this.ingredients);
 		}
 	}
 }

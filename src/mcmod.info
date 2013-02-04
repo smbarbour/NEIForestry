@@ -1,0 +1,18 @@
+[
+{
+  "modid" : "NEIForestry",
+  "name" : "NEI Forestry Plugin",
+  "version" : "1.1",
+  "url" : "",
+  "credits" : "influenced by mistaqur",
+  "authors": [
+	"smbarbour"
+],
+  "description": "Adds Forestry shaped crafting (i.e. Multifarms) handler to NEI",
+  "logoFile" : "",
+  "updateUrl" : "",
+  "parent" : "",
+  "screenshots": [
+]
+}
+]

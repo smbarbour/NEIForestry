@@ -17,10 +17,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.versioning.ArtifactVersion;
 import cpw.mods.fml.common.versioning.VersionParser;
 
-@Mod(modid="NEIForestry", name="NEI Forestry Shaped Crafting", version="1.0", dependencies="required-after:NotEnoughItems")
+@Mod(modid="NEIForestry", name="NEI Forestry", version="1.1", dependencies="required-after:NotEnoughItems")
 public class NEIForestry {
 
-	public static final String VERSION = "1.0";
+	public static final String VERSION = "1.1";
 	public static Logger logger = Logger.getLogger("NEIForestry");
 
 	@Mod.Instance("NEIForestry")
@@ -38,11 +38,8 @@ public class NEIForestry {
 	public void postLoad(FMLPostInitializationEvent event) {
 		if (FMLCommonHandler.instance().getSide().isClient())
 		{
-			//ModContainer forestryMod = Loader.instance().getIndexedModList().get("Forestry");
-			//if (forestryMod.getProcessedVersion().compareTo(VersionParser.parseVersionReference("Forestry@,2.1")) == 0) {
-				API.registerRecipeHandler(new ForestryRecipeHandler());
-				API.registerUsageHandler(new ForestryRecipeHandler());
-			//}
+			API.registerRecipeHandler(new ForestryShapedHandler());
+			API.registerUsageHandler(new ForestryShapedHandler());
 		} else {
 			logger.log(Level.WARNING, "NEIForestry is client-side only mod ");
 		}
