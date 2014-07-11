@@ -1,21 +1,16 @@
 package org.smbarbour.nei.forestry;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import codechicken.nei.api.API;
-
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.versioning.ArtifactVersion;
-import cpw.mods.fml.common.versioning.VersionParser;
+
+import java.io.File;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Mod(modid="NEIForestry", name="NEI Forestry", version="1.1", dependencies="required-after:NotEnoughItems")
 public class NEIForestry {
@@ -28,13 +23,13 @@ public class NEIForestry {
 	private File sourceFile;
 	private Map<String, ArtifactVersion> modVersions;
 
-	@Mod.PreInit
+	@Mod.EventHandler
 	public void preLoad(FMLPreInitializationEvent event)
 	{
 		this.sourceFile = event.getSourceFile();
 	}
 
-	@Mod.PostInit
+	@Mod.EventHandler
 	public void postLoad(FMLPostInitializationEvent event) {
 		if (FMLCommonHandler.instance().getSide().isClient())
 		{

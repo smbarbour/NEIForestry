@@ -1,20 +1,16 @@
 package org.smbarbour.nei.forestry;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-
-import javax.print.attribute.standard.OutputDeviceAssigned;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
 import codechicken.nei.NEIClientUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.ShapedRecipeHandler;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import forestry.core.utils.ShapedRecipeCustom;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ForestryShapedHandler extends ShapedRecipeHandler {
 
@@ -88,8 +84,8 @@ public class ForestryShapedHandler extends ShapedRecipeHandler {
 		{
 			try
 			{
-				int width = ((Integer)ObfuscationReflectionHelper.getPrivateValue(ShapedRecipeCustom.class, recipe, 0)).intValue();
-				int height = ((Integer)ObfuscationReflectionHelper.getPrivateValue(ShapedRecipeCustom.class, recipe, 1)).intValue();
+				int width = ObfuscationReflectionHelper.getPrivateValue(ShapedRecipeCustom.class, recipe, 0);
+				int height = ObfuscationReflectionHelper.getPrivateValue(ShapedRecipeCustom.class, recipe, 1);
 				Object[] items = recipe.getIngredients();
 				this.product = new PositionedStack(recipe.getRecipeOutput(), this.xproduct, this.yproduct);
 				setIngredients(width, height, items);
@@ -97,7 +93,6 @@ public class ForestryShapedHandler extends ShapedRecipeHandler {
 			catch (Exception ex)
 			{
 				ex.printStackTrace();
-				return;
 			}
 		}
 
@@ -121,7 +116,7 @@ public class ForestryShapedHandler extends ShapedRecipeHandler {
 			return this.product;
 		}
 
-		public ArrayList<PositionedStack> getIngredients()
+		public List<PositionedStack> getIngredients()
 		{
 			return getCycledIngredients(ForestryShapedHandler.this.cycleticks / 20, this.ingredients);
 		}
